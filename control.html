@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Timer Controller</title>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 50px;
+      text-align: center;
+    }
+
+    button {
+      font-size: 2rem;
+      padding: 20px 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Remote Timer Control</h1>
+  <input type="password" id="key" placeholder="Secret Key" />
+  <br><br>
+  <button onclick="sendCommand()">Subtract 10s</button>
+
+  <script>
+    const firebaseConfig = {
+        
+  apiKey: "AIza....",
+  authDomain: "timer-90645.firebaseapp.com",
+  projectId: "timer-90645",
+  storageBucket: "timer-90645.appspot.com",
+  messagingSenderId: "....",
+  appId: "....",
+  databaseURL: "https://timer-90645-default-rtdb.firebaseio.com"
+
+
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const SECRET_KEY = "123"; // Change this
+
+    function sendCommand() {
+      const inputKey = document.getElementById("key").value;
+      if (inputKey !== SECRET_KEY) {
+        alert("Wrong key!");
+        return;
+      }
+
+      db.ref("command").set({ subtract10: true });
+    }
+  </script>
+</body>
+</html>
