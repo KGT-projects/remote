@@ -10,10 +10,13 @@
       padding: 50px;
       text-align: center;
     }
-
     button {
       font-size: 2rem;
       padding: 20px 40px;
+    }
+    input {
+      font-size: 1rem;
+      padding: 8px;
     }
   </style>
 </head>
@@ -25,22 +28,20 @@
 
   <script>
     const firebaseConfig = {
-        
-  apiKey: "AIza....",
-  authDomain: "timer-90645.firebaseapp.com",
-  projectId: "timer-90645",
-  storageBucket: "timer-90645.appspot.com",
-  messagingSenderId: "....",
-  appId: "....",
-  databaseURL: "https://timer-90645-default-rtdb.firebaseio.com"
-
-
+      apiKey: "AIzaSyCgAHxr7NfcJR-SyevkBq0o1SZycsDsgvM",
+      authDomain: "timer-90645.firebaseapp.com",
+      projectId: "timer-90645",
+      storageBucket: "timer-90645.firebasestorage.app",
+      messagingSenderId: "697886077856",
+      appId: "1:697886077856:web:70b5b4ecae686eb95ceac5",
+      measurementId: "G-Y7LQYELLSD",
+      databaseURL: "https://timer-90645-default-rtdb.firebaseio.com"
     };
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    const SECRET_KEY = "1"; // Change this
+    const SECRET_KEY = "1234";
 
     function sendCommand() {
       const inputKey = document.getElementById("key").value;
