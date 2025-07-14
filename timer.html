@@ -1,65 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Remote Timer</title>
+  <title>Firebase Test</title>
   <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
-  <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      font-family: sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #f0f0f0;
-    }
-    #timer {
-      font-size: 6rem;
-    }
-  </style>
 </head>
 <body>
-  <div id="timer">Loading...</div>
-
+  <h1>Firebase test</h1>
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCgAHxr7NfcJR-SyevkBq0o1SZycsDsgvM",
-      authDomain: "timer-90645.firebaseapp.com",
-      projectId: "timer-90645",
-      storageBucket: "timer-90645.firebasestorage.app",
-      messagingSenderId: "697886077856",
-      appId: "1:697886077856:web:70b5b4ecae686eb95ceac5",
-      measurementId: "G-Y7LQYELLSD",
-      databaseURL: "https://timer-90645-default-rtdb.firebaseio.com"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    const timerEl = document.getElementById('timer');
-    let timeLeft = 60;
-    timerEl.textContent = timeLeft;
-
-    const countdown = setInterval(() => {
-      if (timeLeft > 0) {
-        timeLeft--;
-        timerEl.textContent = timeLeft;
-      } else {
-        timerEl.textContent = "Time's up!";
-        clearInterval(countdown);
-      }
-    }, 1000);
-
-    db.ref("command").on("value", (snapshot) => {
-      const data = snapshot.val();
-      if (data && data.subtract10 === true) {
-        timeLeft = Math.max(0, timeLeft - 10);
-        timerEl.textContent = timeLeft;
-        if (timeLeft === 0) clearInterval(countdown);
-        db.ref("command").set({ subtract10: false });
-      }
-    });
+    if(typeof firebase !== 'undefined') {
+      document.body.insertAdjacentHTML('beforeend', '<p>Firebase loaded!</p>');
+    } else {
+      document.body.insertAdjacentHTML('beforeend', '<p>Firebase NOT loaded!</p>');
+    }
   </script>
 </body>
 </html>
