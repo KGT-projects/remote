@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Remote Timer</title>
+  <title>Timer Controller</title>
   <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
+    body {
       font-family: sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #f0f0f0;
+      padding: 50px;
+      text-align: center;
     }
-    #timer {
-      font-size: 6rem;
+
+    button {
+      font-size: 2rem;
+      padding: 20px 40px;
+    }
+
+    input {
+      font-size: 1rem;
+      padding: 8px;
     }
   </style>
 </head>
 <body>
-  <div id="timer">60</div>
+  <h1>Remote Timer Control</h1>
+  <input type="password" id="key" placeholder="Secret Key" />
+  <br><br>
+  <button onclick="sendCommand()">Subtract 10s</button>
 
   <script>
     // ✅ Firebase Config
@@ -37,38 +43,18 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    let timeLeft = 60;
-    const timerEl = document.getElementById('timer');
+    const SECRET_KEY = "1234"; // Change this to something secret!
 
-    function updateDisplay() {
-      if (timeLeft > 0) {
-        timerEl.textContent = timeLeft;
-      } else {
-        timerEl.textContent = "Time's up!";
+    function sendCommand() {
+      const inputKey = document.getElementById("key").value;
+      if (inputKey !== SECRET_KEY) {
+        alert("Wrong key!");
+        return;
       }
+
+      db.ref("command").set({ subtract10: true });
     }
-
-    updateDisplay();
-
-    const countdown = setInterval(() => {
-      if (timeLeft > 0) {
-        timeLeft--;
-        updateDisplay();
-      }
-    }, 1000);
-
-    const commandRef = db.ref("command");
-    commandRef.on("value", (snapshot) => {
-      const data = snapshot.val();
-      if (data && data.subtract10 === true) {
-        timeLeft = Math.max(0, timeLeft - 10);
-        updateDisplay();
-
-        if (timeLeft === 0) clearInterval(countdown);
-
-        commandRef.set({ subtract10: false });
-      }
-    });
   </script>
 </body>
 </html>
+
