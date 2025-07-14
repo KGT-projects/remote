@@ -23,7 +23,7 @@
   <div id="timer">60</div>
 
   <script>
-    const firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIza....",
   authDomain: "timer-90645.firebaseapp.com",
   projectId: "timer-90645",
@@ -41,6 +41,7 @@
     const timerEl = document.getElementById('timer');
     timerEl.textContent = timeLeft;
 
+    // Start the countdown
     const countdown = setInterval(() => {
       if (timeLeft > 0) {
         timeLeft--;
@@ -51,7 +52,7 @@
       }
     }, 1000);
 
-    // Listen for subtract command
+    // Listen for subtract10 command
     db.ref("command").on("value", (snapshot) => {
       const data = snapshot.val();
       if (data && data.subtract10 === true) {
@@ -63,10 +64,11 @@
         }
         timerEl.textContent = timeLeft;
 
-        // reset command
+        // Reset the command
         db.ref("command").set({ subtract10: false });
       }
     });
   </script>
 </body>
 </html>
+
