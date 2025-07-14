@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Remote Timer</title>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f0f0;
+    }
+    #timer {
+      font-size: 6rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="timer">60</div>
+
+  <script>
+    const firebaseConfig = {
+  apiKey: "AIza....",
+  authDomain: "timer-90645.firebaseapp.com",
+  projectId: "timer-90645",
+  storageBucket: "timer-90645.appspot.com",
+  messagingSenderId: "....",
+  appId: "....",
+  databaseURL: "https://timer-90645-default-rtdb.firebaseio.com"
+};
+
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    let timeLeft = 60;
+    const timerEl = document.getElementById('timer');
+    timerEl.textContent = timeLeft;
+
+    const countdown = setInterval(() => {
+      if (timeLeft > 0) {
+        timeLeft--;
+        timerEl.textContent = timeLeft;
+      } else {
+        timerEl.textContent = "Time's up!";
+        clearInterval(countdown);
+      }
+    }, 1000);
+
+    // Listen for subtract command
+    db.ref("command").on("value", (snapshot) => {
+      const data = snapshot.val();
+      if (data && data.subtract10 === true) {
+        if (timeLeft > 10) {
+          timeLeft -= 10;
+        } else {
+          timeLeft = 0;
+          clearInterval(countdown);
+        }
+        timerEl.textContent = timeLeft;
+
+        // reset command
+        db.ref("command").set({ subtract10: false });
+      }
+    });
+  </script>
+</body>
+</html>
