@@ -1,7 +1,7 @@
 // config
 const DEFAULT_DURATION = 32 * 3600; // 32 hours in seconds
 
-// shared localStorage state key
+//// shared localStorage state key
 const STORAGE_KEY = 'remote-timer-state';
 
 function initState() {
