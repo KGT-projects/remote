@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html>
-  
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Timer</title>
+  <title>Control</title>
   <style>
     html, body {
       height:100%;
       margin:0;
-      background:white;
-      color:black;
       display:flex;
       justify-content:center;
       align-items:center;
+      flex-direction:column;
       font-family:sans-serif;
-    } 1
-    #timer {
-      font-size:6rem;
-    } 
+      background:#f0f0f0;
+      gap:1rem;
+    }
+    button {
+      font-size:2rem;
+      padding:1rem 2rem;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+    }
+    #sub10 { background:#e63946; color:white; }
+    #reset4h { background:#006d77; color:white; }
   </style>
 </head>
 <body>
-  <div id="timer">Loading...</div>
+  <button id="sub10">−10 seconds</button>
+  <button id="reset4h">−4 hours</button>
+
   <script src="script.js"></script>
   <script>
-    startTimer();
-
-    let lastTap = 0;
-    document.body.addEventListener('touchstart', e => {
-      const now = Date.now();
-      if (now - lastTap < 300) {
-        document.documentElement.requestFullscreen?.();
-      }
-      lastTap = now;
-    });
+    document.getElementById('sub10').onclick = () => subtractTime(10);
+    document.getElementById('reset4h').onclick = () => resetSubtract(4);
   </script>
 </body>
 </html>
