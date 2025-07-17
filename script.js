@@ -6,7 +6,6 @@ function getTimerData() {
 }  
 
 
-
 function setTimerData(data) {
   localStorage.setItem('remote-timer', JSON.stringify(data));
 }
