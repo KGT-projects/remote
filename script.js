@@ -17,6 +17,11 @@ function initTimer() {
     setTimerData({ startedAt: now, offset: 0 });
   }
 }
+function resetTimer() {
+  const now = Date.now();
+  setTimerData({ startedAt: now, offset: 0 });
+}
+
 
 function getRemainingSeconds() {
   const data = getTimerData();
