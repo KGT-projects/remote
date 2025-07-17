@@ -1,5 +1,6 @@
+const API_URL = 'https://script.google.com/macros/s/AKfycbyjcFgyzEAF1RNCfFklipqn3nHn4w7GZisp3dzWsvG6sGglYRECvQhAVKWgD5hxn1k9Rg/exec';
+const DEFAULT_DURATION = 32 * 60 * 60; // 32 hours
 
-const DEFAULT_DURATION = 32 * 60 * 60; // Set initial countdown time in seconds
 
 function getTimerData() {
   const stored = localStorage.getItem('remote-timer');
