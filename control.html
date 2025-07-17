@@ -1,56 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Timer Controller</title>
-  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Control</title>
   <style>
-    body {
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #f0f0f0;
       font-family: sans-serif;
-      padding: 50px;
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     button {
       font-size: 2rem;
-      padding: 20px 40px;
-    }
-    input {
-      font-size: 1rem;
-      padding: 8px;
+      padding: 1rem 2rem;
+      background: #e63946;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <h1>Remote Timer Control</h1>
-  <input type="password" id="key" placeholder="Secret Key" />
-  <br><br>
-  <button onclick="sendCommand()">Subtract 10s</button>
-
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCgAHxr7NfcJR-SyevkBq0o1SZycsDsgvM",
-      authDomain: "timer-90645.firebaseapp.com",
-      projectId: "timer-90645",
-      storageBucket: "timer-90645.firebasestorage.app",
-      messagingSenderId: "697886077856",
-      appId: "1:697886077856:web:70b5b4ecae686eb95ceac5",
-      measurementId: "G-Y7LQYELLSD",
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    const SECRET_KEY = "1234";
-
-    function sendCommand() {
-      const inputKey = document.getElementById("key").value;
-      if (inputKey !== SECRET_KEY) {
-        alert("Wrong key!");
-        return;
-      }
-
-      db.ref("command").set({ subtract10: true });
-    }
-  </script>
+  <button onclick="subtractTime()">−10 seconds</button>
+  <script src="script.js"></script>
 </body>
 </html>
