@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Firebase Test</title>
-  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Timer</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: white;
+      color: black;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 6rem;
+    }
+  </style>
 </head>
 <body>
-  <h1>Firebase test</h1>
+  <div id="timer">Loading...</div>
+  <script src="script.js"></script>
   <script>
-    if(typeof firebase !== 'undefined') {
-      document.body.insertAdjacentHTML('beforeend', '<p>Firebase loaded!</p>');
-    } else {
-      document.body.insertAdjacentHTML('beforeend', '<p>Firebase NOT loaded!</p>');
-    }
+    startTimer(); // starts countdown from stored value
   </script>
 </body>
 </html>
