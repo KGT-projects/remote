@@ -10,22 +10,30 @@
       background: #f0f0f0;
       font-family: sans-serif;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
+      gap: 2rem;
     }
     button {
       font-size: 2rem;
       padding: 1rem 2rem;
-      background: #e63946;
+      background: #1d3557;
       color: white;
       border: none;
       border-radius: 10px;
       cursor: pointer;
     }
+    button:nth-child(2) {
+      background: #e63946; /* Subtract button is red */
+    }
   </style>
 </head>
 <body>
+  <button onclick="resetTimer()">🔄 Reset Timer</button>
   <button onclick="subtractTime()">−10 seconds</button>
+
   <script src="script.js"></script>
 </body>
 </html>
+
