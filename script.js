@@ -4,7 +4,7 @@ function getTimerData() {
   const stored = localStorage.getItem('remote-timer');
   return stored ? JSON.parse(stored) : null;
 }  
-
+ 
 
 function setTimerData(data) {
   localStorage.setItem('remote-timer', JSON.stringify(data));
