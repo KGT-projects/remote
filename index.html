@@ -11,34 +11,36 @@
       color: black;
       font-family: sans-serif;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
+      touch-action: manipulation;
     }
 
     #timer {
       font-size: 6rem;
-      margin-bottom: 2rem;
-    }
-
-    button {
-      font-size: 1.5rem;
-      padding: 0.75em 1.5em;
-      background: #1d3557;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <div id="timer">Loading...</div>
-  <button onclick="goFullscreen()">🔲 Volledig scherm</button>
 
   <script src="script.js"></script>
   <script>
     startTimer();
+
+    // Double tap fullscreen logic
+    let lastTap = 0;
+
+    document.body.addEventListener('touchstart', function (e) {
+      const currentTime = new Date().getTime();
+      const tapLength = currentTime - lastTap;
+      if (tapLength < 300 && tapLength > 0) {
+        goFullscreen();
+      }
+      lastTap = currentTime;
+    });
 
     function goFullscreen() {
       const docEl = document.documentElement;
