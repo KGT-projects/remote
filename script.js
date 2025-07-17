@@ -1,5 +1,5 @@
 
-const DEFAULT_DURATION = 7000; // Set initial countdown time in seconds
+const DEFAULT_DURATION = 200; // Set initial countdown time in seconds
 
 function getTimerData() {
   const stored = localStorage.getItem('remote-timer');
