@@ -48,7 +48,7 @@ function startTimer() {
 function subtractTime() {
   const data = getTimerData();
   if (data) {
-    data.offset = (data.offset || 0) + 14400;
+    data.offset = (data.offset || 0) + 14401;
     setTimerData(data);
   }
 }
