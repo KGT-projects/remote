@@ -1,55 +1,59 @@
-const API_URL = 'https://script.google.com/macros/s/AKfycbyjcFgyzEAF1RNCfFklipqn3nHn4w7GZisp3dzWsvG6sGglYRECvQhAVKWgD5hxn1k9Rg/exec';
-const DEFAULT_DURATION = 32 * 60 * 60; // 32 hours
+// config
+const DEFAULT_DURATION = 32 * 3600; // 32 hours in seconds
 
+// shared localStorage state key
+const STORAGE_KEY = 'remote-timer-state';
 
-function getTimerData() {
-  const stored = localStorage.getItem('remote-timer');
-  return stored ? JSON.parse(stored) : null;
-}
-
-function setTimerData(data) {
-  localStorage.setItem('remote-timer', JSON.stringify(data));
-}
-
-function initTimer() {
-  const existing = getTimerData();
-  if (!existing || !existing.startedAt) {
+function initState() {
+  if (!localStorage.getItem(STORAGE_KEY)) {
     const now = Date.now();
-    setTimerData({ startedAt: now, offset: 0 });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      startAt: now,
+      offset: 0
+    }));
   }
 }
-function resetTimer() {
-  const now = Date.now();
-  setTimerData({ startedAt: now, offset: 0 });
+
+function readState() {
+  const s = JSON.parse(localStorage.getItem(STORAGE_KEY));
+  return { startAt: s.startAt, offset: s.offset };
 }
 
-
-function getRemainingSeconds() {
-  const data = getTimerData();
-  if (!data) return DEFAULT_DURATION;
-  const elapsed = Math.floor((Date.now() - data.startedAt) / 1000);
-  return Math.max(0, DEFAULT_DURATION - elapsed - (data.offset || 0));
+function writeState(state) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
+
+// public functions
 
 function startTimer() {
-  initTimer();
-  const el = document.getElementById("timer");
+  initState();
+  const el = document.getElementById('timer');
 
   function update() {
-    const seconds = getRemainingSeconds();
-    el.textContent = seconds > 0 ? seconds : "Time's up!";
-    if (seconds > 0) {
-      setTimeout(update, 1000);
-    }
+    const s = readState();
+    const elapsed = Math.floor((Date.now() - s.startAt) / 1000);
+    const rem = Math.max(0, DEFAULT_DURATION - elapsed - s.offset);
+    el.textContent = formatTime(rem);
+    if (rem > 0) setTimeout(update, 1000);
   }
 
   update();
 }
 
-function subtractTime() {
-  const data = getTimerData();
-  if (data) {
-    data.offset = (data.offset || 0) + 14400;
-    setTimerData(data);
-  }
+function subtractTime(seconds) {
+  const s = readState();
+  s.offset += seconds;
+  writeState(s);
+}
+
+function resetSubtract(hours=4) {
+  // subtract exactly 'hours' hours
+  subtractTime(hours * 3600);
+}
+
+function formatTime(sec) {
+  const h = String(Math.floor(sec / 3600)).padStart(2,'0');
+  const m = String(Math.floor((sec % 3600)/60)).padStart(2,'0');
+  const s = String(sec % 60).padStart(2,'0');
+  return `${h}:${m}:${s}`;
 }
