@@ -5,53 +5,34 @@
   <title>Timer</title>
   <style>
     html, body {
-      height: 100%;
-      margin: 0;
-      background: white;
-      color: black;
-      font-family: sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      touch-action: manipulation;
+      height:100%;
+      margin:0;
+      background:white;
+      color:black;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-family:sans-serif;
     }
-
     #timer {
-      font-size: 6rem;
-      text-align: center;
+      font-size:6rem;
     }
   </style>
 </head>
 <body>
   <div id="timer">Loading...</div>
-
   <script src="script.js"></script>
   <script>
     startTimer();
 
-    // Double tap fullscreen logic
     let lastTap = 0;
-
-    document.body.addEventListener('touchstart', function (e) {
-      const currentTime = new Date().getTime();
-      const tapLength = currentTime - lastTap;
-      if (tapLength < 300 && tapLength > 0) {
-        goFullscreen();
+    document.body.addEventListener('touchstart', e => {
+      const now = Date.now();
+      if (now - lastTap < 300) {
+        document.documentElement.requestFullscreen?.();
       }
-      lastTap = currentTime;
+      lastTap = now;
     });
-
-    function goFullscreen() {
-      const docEl = document.documentElement;
-      if (docEl.requestFullscreen) {
-        docEl.requestFullscreen();
-      } else if (docEl.webkitRequestFullscreen) {
-        docEl.webkitRequestFullscreen();
-      } else if (docEl.msRequestFullscreen) {
-        docEl.msRequestFullscreen();
-      }
-    }
   </script>
 </body>
 </html>
